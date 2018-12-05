@@ -1,1 +1,1 @@
-# BoundedModelChecking
+# Bounded Model Checking
