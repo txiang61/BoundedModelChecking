@@ -7,10 +7,10 @@ public class Constraint {
     }
 	
 	Operade operade;
-	SymbolicValue left;
-	SymbolicValue right;
+	BMCValue left;
+	BMCValue right;
 	
-	public Constraint(Operade op, SymbolicValue left, SymbolicValue right) {
+	public Constraint(Operade op, BMCValue left, BMCValue right) {
 		this.operade = op;
 		this.left = left;
         this.right = right;
