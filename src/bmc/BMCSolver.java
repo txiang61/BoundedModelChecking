@@ -26,43 +26,33 @@ public class BMCSolver {
 	
 	private BoolExpr constructClause(Context ctx, Constraint c) {
 		Operade op = c.operade;
-		Sort bvtr = getBitVecSort(c.right.getType());
-		Sort bvtl = getBitVecSort(c.left.getType());
+		BitVecExpr r;
+		BitVecExpr l;
+		if (c.right.getType() == ValueType.VARIABLE) {
+			r = (BitVecExpr)ctx.mkConst(c.right.getName(), ctx.mkBitVecSort(c.right.getRange()));
+		} else {
+			r = (BitVecNum)ctx.mkBV(c.right.getConstantValue(), c.right.getRange());
+		}
+		
+		if (c.left.getType() == ValueType.VARIABLE) {
+			l = (BitVecExpr)ctx.mkConst(c.left.getName(), ctx.mkBitVecSort(c.left.getRange()));
+		} else {
+			l = (BitVecNum)ctx.mkBV(c.left.getConstantValue(), c.left.getRange());
+		}
+		
 		switch (op) {
 			case GREATERTHAN:
-				
-			    break;
+				return ctx.mkBVSGT(l, r);
 			case EQUALTO:
-				
-				BitVecExpr r = ;
-				BitVecExpr r = ;
-				return ctx.mkEq(r, l);
+				return ctx.mkEq(l, r);
 			case NOTEQUALTO:
-			    break;
+				return ctx.mkNot(ctx.mkEq(l, r));
 			case LESSTHAN:
-			    break;
+				return ctx.mkBVSLT(l, r);
 			case GREATEROREQUALTO:
-			    break;
+				return ctx.mkBVSGE(l, r);
 			case LESSOREQUALTO:
-			    break;
-			default:
-			    System.err.println("Unknown orignal type, abort!");
-			    System.exit(1);
-		}
-	}
-	
-	private Sort getBitVecSort(Context ctx, ValueType type) {
-		switch (type) {
-			case TOP:
-				return ctx.mkBitVecSort(64);
-			case INTEGER:
-				return ctx.mkBitVecSort(32);
-			case SHORT:
-				return ctx.mkBitVecSort(16);
-			case BYTE:
-				return ctx.mkBitVecSort(8);
-			case BOTTOM:
-				return null;
+				return ctx.mkBVSLE(l, r);
 			default:
 			    System.err.println("Unknown orignal type, abort!");
 			    System.exit(1);

@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="/home/txiang/jsr308/bmc/z3/bin/com.microsoft.z3.jar"/>
-	<classpathentry kind="lib" path="/checker/dist/checker.jar"/>
+	<classpathentry exported="true" kind="lib" path="/checker/dist/checker.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

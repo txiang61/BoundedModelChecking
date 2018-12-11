@@ -2,26 +2,31 @@ package bmc;
 
 import java.util.Objects;
 
-public class BMCValue {
+import org.checkerframework.dataflow.analysis.AbstractValue;
+
+public class BMCValue implements AbstractValue<BMCValue> {
 
 	enum ValueType {
-        TOP, LONG, INTEGER, BYTE, SHORT, CONSTANT, BOTTOM
+        VARIABLE, CONSTANT
     }
 	
 	private ValueType type;
 	private Integer value;
 	private String name;
+	private int range;
 	
-	public BMCValue(ValueType type, String name) {
+	public BMCValue(ValueType type, String name, int range) {
         this.type = type;
         this.value = null;
         this.name = name;
+        this.range = range;
     }
 	
-	public BMCValue(ValueType type, Integer constant) {
+	public BMCValue(ValueType type, Integer constant, int range) {
         this.value = constant;
         this.type = ValueType.CONSTANT;
         this.name = constant.toString();
+        this.range = range;
     }
 	
     public Integer getConstantValue() {
@@ -35,6 +40,10 @@ public class BMCValue {
     
     public ValueType getType() {
         return type;
+    }
+    
+    public int getRange() {
+        return range;
     }
     
     @Override
@@ -54,4 +63,10 @@ public class BMCValue {
     		return name;
     	}
     }
+
+	@Override
+	public BMCValue leastUpperBound(BMCValue arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
